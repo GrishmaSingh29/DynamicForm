@@ -1,0 +1,66 @@
+.questionContainer {
+    box-shadow: 0 0 20px 2px #8e8eb9;
+    border: 1px solid #dcdceb;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.headingSection {
+    text-align: center;
+}
+.resultSection {
+    margin: 20px;
+    padding: 20px;
+}
+form {
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 0 2px 0 #8e8eb9;
+    text-align: left;
+}
+hr {
+    border-width: inherit;
+}
+button {
+    width: 500px;
+    height: 30px;
+    left: 31%;
+    position: relative;
+    margin-top: 5%;
+    background: #3f51b5;
+    border: 1px;
+    border-radius: 2px;
+    color: #fff;
+}
+button:disabled {
+    background: gainsboro;
+}
+.errorMsg {
+    color: red;
+    margin-left: 20px;
+}
+.field {
+    height: 32px;
+    width: auto;
+    margin: 5px;
+}
+:host ::ng-deep { 
+    .labelClass {
+        width: 350px;
+        color: cadetblue;
+        display: inline-block;
+    }
+    .fieldClass {
+        width: 500px;
+        display: inline-block;
+    }
+    input, select {
+        width: -webkit-fill-available;
+        box-shadow: inset 0px 0px 1px 0px #c7bfcf;
+        border-radius: 2px;
+        height: 30px;
+        border: 1px solid #d0d2eb;
+    }
+    .radioClass {
+        width: 15px;
+        vertical-align: middle;
+    }
+}

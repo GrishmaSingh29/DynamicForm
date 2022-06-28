@@ -1,0 +1,95 @@
+<div class="questionContainer">    
+    <div class="headingSection">
+        <h1>
+            Questionnarie
+        </h1>
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit($event)">
+            <ng-container *ngFor="let field of formData;">
+                <div [ngSwitch]="field.type">
+                    <div class="field" *ngSwitchCase="'boolean'">
+                        <div>
+                            <label class="labelClass"> {{ field.text }} </label>
+                            <span class="fieldClass">
+                                <input [formControlName]="field.text" class="radioClass" type="radio" name={{field.name}} value="true"/>
+                                <label for="true">True</label>
+                                <input [formControlName]="field.text" class="radioClass" type="radio" name={{field.name}} value="false"/>
+                                <label for="false">False</label>
+                            </span>
+                            <span *ngIf="myForm.controls[field.text].dirty || myForm.controls[field.text].touched">
+                                <span *ngIf="!myForm.controls[field.text].valid" class="errorMsg">
+                                    Required field !!
+                                </span>
+                            </span>
+                            <hr/>
+                        </div>
+                    </div>
+
+                    <div class="field" *ngSwitchCase="'string'">
+                        <div>
+                            <label class="labelClass"> {{ field.text }} </label>
+                            <span class="fieldClass">
+                                <input type="text" [formControlName]="field.text"/>
+                            </span>
+                            <span *ngIf="myForm.controls[field.text].dirty || myForm.controls[field.text].touched">
+                                <span *ngIf="myForm.controls[field.text]?.hasError('pattern')" class="errorMsg">
+                                    Only alphabets are allowed !!
+                                </span>
+                                <span *ngIf="myForm.controls[field.text]?.hasError('required')" class="errorMsg">
+                                    Required field !!
+                                </span>
+                            </span>
+                            <hr/>
+                        </div>
+                    </div>
+
+                    <div class="field" *ngSwitchCase="'date'">
+                        <div>
+                            <label class="labelClass"> {{ field.text }} </label>
+                            <span class="fieldClass">
+                                <input type="date" [formControlName]="field.text"/>
+                            </span>
+                            <span *ngIf="myForm.controls[field.text].dirty || myForm.controls[field.text].touched">
+                                <span *ngIf="myForm.controls[field.text]?.hasError('required')" class="errorMsg">
+                                    Required field !!
+                                </span>
+                                <span *ngIf="myForm.controls[field.text]?.hasError('invalidDate')" class="errorMsg">
+                                    Future dates are not allowed !!
+                                </span>
+                            </span>
+                            <hr/>
+                        </div>
+                    </div>
+
+                    <div class="field" *ngSwitchCase="'choice'">
+                        <div>
+                            <label class="labelClass"> {{ field.text }} </label>
+                            <span class="fieldClass">
+                                <select [formControlName]="field.text">
+                                    <option value="-1">Select</option>
+                                    <option *ngFor="let option of field.option"
+                                    value="{{option['valueCoding'].code}}">{{option['valueCoding'].display}}</option>
+                                </select>
+                            </span>
+                            <span *ngIf="myForm.controls[field.text].dirty || myForm.controls[field.text].touched">
+                                <span *ngIf="!myForm.controls[field.text].valid" class="errorMsg">
+                                    Required field !!
+                                </span>
+                            </span>
+                            <hr/>
+                        </div>
+                    </div>
+
+                </div>
+            </ng-container>
+            <button type="submit" [disabled]="!myForm.valid"> Submit </button>
+        </form>
+    </div>
+    <div class="resultSection">
+        <div *ngIf="submitted">
+            <h4>Your response to the quiz is: </h4>
+            <ng-container *ngFor="let val of submittedData">
+                <p *ngIf="val[1].length > 0">{{ val[0] }}  {{ val[1] }}</p>
+            </ng-container>
+        </div>
+    </div>
+</div>
